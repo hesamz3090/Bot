@@ -2,16 +2,13 @@ from django.contrib import admin
 from .models import *
 
 
-@admin.register(Profile)
-class ProfileAdmin(admin.ModelAdmin):
-
-    def get_queryset(self, request):
-        qs = super(ProfileAdmin, self).get_queryset(request)
-        if request.user.is_superuser:
-            return qs
-        return qs.filter(user=request.user)
+@admin.register(Setting)
+class SettingAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name')
+    search_fields = ('id', 'name')
 
 
-    list_display = ('id', 'user')
-    search_fields = ('id', 'user')
-
+@admin.register(Member)
+class MemberAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user_id', 'date')
+    search_fields = ('id', 'user_id', 'date')
